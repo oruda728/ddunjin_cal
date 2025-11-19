@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<title>뚠진이랑 함께하는 초스피드 중국수입 견적</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- PWA -->
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#1e3a8a">
+
+<!-- 서비스워커 (HTML은 캐시 제외) -->
+<script>
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.register("service-worker.js?v=" + Date.now());
+}
+</script>
+
+<style>
+html, body { scroll-behavior: smooth; }
+body {
+  font-family:'Inter','Pretendard',sans-serif;
+  background:#f5f7fa;
+  margin:0;
+  padding-bottom:90px;
+  color:#333;
+}
+
+/* 헤더 */
+.header {
+  background:linear-gradient(150deg,#1e3a8a,#3b82f6);
+  color:white;
+  padding:32px 20px 40px;
+  text-align:center;
+  border-bottom-left-radius:30px;
+  border-bottom-right-radius:30px;
+}
+.header h1 { margin:0; font-size:26px; font-weight:800; }
+
+/* Wrapper */
+.wrapper { max-width:900px; margin:0 auto; padding:20px; }
+
+/* Card */
+.card {
+  background:#fff;
+  padding:22px;
+  border-radius:14px;
+  box-shadow:0 6px 20px rgba(0,0,0,0.06);
+  margin-bottom:20px;
+}
+
+/* Form */
+.form-item { display:flex; flex-direction:column; margin-bottom:16px; }
+label { font-size:14px; font-weight:700; margin-bottom:6px; }
+input, select {
+  padding:12px; border-radius:10px; border:1px solid #d1d5db;
+  background:#f9fafb; font-size:16px;
+}
+input:focus, select:focus {
+  border-color:#3b82f6; background:#fff; outline:none;
+}
+
+/* Highlight */
+.highlight {
+  padding:12px; background:#eef2ff; border-radius:10px; text-align:right;
+  font-weight:800; border:1px solid #c7d2fe; font-size:17px;
+}
+
+/* Product card */
+.product-card {
+  background:#fff; padding:20px; border-radius:16px; border:1px solid #e5e7eb;
+  box-shadow:0 4px 15px rgba(0,0,0,0.05); margin-bottom:20px; position:relative;
+}
+.product-card h3 { margin:0 0 14px; color:#1e3a8a; font-size:17px; font-weight:800; }
+
+.remove-btn {
+  position:absolute; top:15px; right:15px; background:#ef4444; color:white;
+  border:none; padding:6px 12px; border-radius:8px; cursor:pointer;
+}
+
+/* Buttons */
+.btn {
+  padding:14px 28px; background:linear-gradient(135deg,#2563eb,#3b82f6);
+  color:white; border:none; border-radius:30px; cursor:pointer;
+  font-size:16px; font-weight:700;
+}
+
+/* 총합 */
+.result-big {
+  font-size:26px; font-weight:900; text-align:right;
+  padding:16px; border-radius:12px; background:#eef2ff; border:1px solid #c7d2fe;
+}
+
+/* Floating bar */
+.floating-bar {
+  position:fixed; bottom:0; left:0; width:98%; background:white;
+  padding:14px 20px; box-shadow:0 -4px 12px rgba(0,0,0,0.10);
+  border-top:1px solid #e5e7eb; display:flex;
+  justify-content:space-between; align-items:center; z-index:9999;
+}
+.floating-price { font-size:20px; font-weight:900; color:#1d4ed8; }
+.floating-btn {
+  padding:10px 16px; background:#3b82f6; color:white;
+  border:none; border-radius:8px; font-size:14px;
+}
+
+/* Reset */
+.reset-btn {
+  width:100%; padding:16px; background:#ef4444;
+  border:none; border-radius:12px; color:white;
+  font-size:17px; font-weight:800; margin:30px 0;
+}
+</style>
+</head>
+
+<body>
+<script>
+document.addEventListener("contextmenu", function(e) {
+  e.preventDefault();
+});
+</script>
+<script>
+document.addEventListener("keydown", function(e) {
+
+  // F12
+  if (e.keyCode === 123) {
+    e.preventDefault();
+    return false;
+  }
+
+  // Ctrl + Shift + I / J / C
+  if (e.ctrlKey && e.shiftKey && (e.keyCode === 73 || e.keyCode === 74 || e.keyCode === 67)) {
+    e.preventDefault();
+    return false;
+  }
+
+  // Ctrl + U (소스보기)
+  if (e.ctrlKey && e.keyCode === 85) {
+    e.preventDefault();
+    return false;
+  }
+
+  // Ctrl + S 저장 막기
+  if (e.ctrlKey && e.keyCode === 83) {
+    e.preventDefault();
+    return false;
+  }
+});
+</script>
+
+
+<div class="header">
+  <h1>뚠진이랑<br>함께하는 초스피드<br>중국수입 견적</h1>
+  ☎️ 010-9449-9397<br>
+  ddunjin1020@naver.com<br>
+<a href="https://open.kakao.com/o/sviX4v2h"
+   target="_blank" 
+   rel="noopener noreferrer"
+   style="display:inline-block;margin-top:12px;
+   background:#ffe812;padding:10px 18px;border-radius:10px;
+   font-weight:800;color:#3a1d1d;text-decoration:none;">
+   💬 카카오 오픈채팅 문의
+</a>
+</div>
+
+<div class="wrapper">
+
+<!-- 환율 -->
+<div class="card">
+  <h3>환율 입력</h3>
+  <div class="form-item">
+    <label>1 RMB → KRW 환율</label>
+    <input type="number" id="exchangeRate" placeholder="예: 190~220">
+  </div>
+</div>
+
+<div class="card">
+  <p style="color:#555;">
+    <center>아래 정보를 입력하면 자동으로 예상 금액이 계산됩니다.<br>
+    실제 견적은 담당자 확인 후 안내됩니다.</center>
+  </p>
+</div>
+
+<!-- 제품 카드 목록 -->
+<div id="productContainer"></div>
+
+<div style="text-align:center;margin-bottom:20px;">
+  <button class="btn" id="addProductBtn">➕ 제품 추가</button>
+</div>
+
+<!-- 전체 결과 -->
+<div class="card">
+  <h3>전체 결과</h3>
+
+  <div class="form-item">
+    <label>전체 박스 수량</label>
+    <div id="totalBoxes" class="highlight">0</div>
+  </div>
+
+  <div class="form-item">
+    <label>전체 CBM</label>
+    <div id="totalCBM" class="highlight">0.0000</div>
+  </div>
+
+  <div class="form-item">
+    <label>예상 총 금액 (부가세 포함)</label>
+    <div id="finalTotal" class="result-big">0 원</div>
+  </div>
+</div>
+
+<button class="reset-btn" id="resetBtn">🔄 전체 리셋</button>
+
+</div> <!-- wrapper -->
+
+<!-- 플로팅바 -->
+<div class="floating-bar">
+  <div class="floating-price" id="floatPrice">0 원</div>
+  <button class="floating-btn" id="scrollTopBtn">맨 위로</button>
+</div>
+
+<!-- 템플릿 -->
+<template id="productTemplate">
+  <div class="product-card">
+    <button class="remove-btn">삭제</button>
+
+    <h3>제품 정보</hh3>
+
+    <div class="form-item"><label>제품명</label><input type="text" class="p-name"></div>
+    <div class="form-item"><label>단가 (RMB)</label><input type="number" class="p-price"></div>
+    <div class="form-item"><label>수량</label><input type="number" class="p-qty"></div>
+    <div class="form-item"><label>중국 택배비 총액 (RMB)</label><input type="number" class="p-delivery"></div>
+
+    <div class="form-item"><label>개당 택배비</label>
+      <div class="highlight p-delivery-unit">0 RMB</div>
+    </div>
+
+    <div class="form-item"><label>인건비 (RMB)</label><input type="number" class="p-labor"></div>
+    <div class="form-item"><label>관세율 (%)</label><input type="number" class="p-duty"></div>
+
+    <div class="form-item">
+      <label>박스 크기</label>
+      <select class="p-box">
+        <option value="">선택</option>
+        <option value="large">대 (64×43×48 / 13¥)</option>
+        <option value="medium">중 (53×35×43 / 11¥)</option>
+        <option value="small">소 (45×35×37 / 9¥)</option>
+      </select>
+    </div>
+
+    <div class="form-item"><label>박스 수량</label><input type="number" class="p-boxcount"></div>
+    <div class="form-item"><label>CBM</label><div class="highlight p-cbm">0.0000</div></div>
+
+  </div>
+</template>
+
+<!-- 기능 JS -->
+<script src="app.js?v=<?=Date.now()?>"></script>
+<script>
+(function() {
+    var element = new Image();
+    Object.defineProperty(element, 'id', {
+        get: function () {
+            alert("개발자 도구가 감지되어 페이지가 보호됩니다.");
+            location.reload();
+        }
+    });
+    console.log(element);
+})();
+</script>
+
+</body>
+</html>
